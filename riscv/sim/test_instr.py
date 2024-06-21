@@ -31,7 +31,11 @@ async def test_rv32i_instructions(dut):
     
     apply_instruction.pc = 0
 
-        # Load values into registers
+    ##########################################
+    # BASIC SEQUENCE OF LOAD AND ARITHMENTIC #
+    ##########################################
+    
+    # Load values into registers
     # LUI x1, 0x00100  -> x1 = 0x00100000
     await apply_instruction(0x001000B7)
     # ADDI x1, x1, 0x004 -> x1 = 0x00100000 + 0x4 = 0x00100004
