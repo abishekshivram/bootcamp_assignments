@@ -6,7 +6,7 @@ module decode_upperimm_inst(
     output logic [4:0] alu_control
 );
 
-always @ (instruction_code) begin
+always_comb begin
     rd = instruction_code[11:7];
     imm = instruction_code[31:12];
     if (instruction_code[6:0] == `OP_LUI)

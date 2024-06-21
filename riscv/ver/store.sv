@@ -14,7 +14,8 @@ module store(
     output logic [3:0] mem_byte_en
 );
 
-logic [1:0] state, next_state;
+// logic [1:0] state, next_state;
+logic state, next_state;
 logic [31:0] mem_addr_reg;
 
 always @ (*) begin
@@ -43,6 +44,14 @@ always @ (*) begin
             mem_addr_reg = 32'h0;
             mem_write_data = 32'h0;
             stall_other_exec = 1'b1;
+        end
+        default: begin
+            next_state = `STORE_RESET;
+            stall_pc = 1'b0;
+            mem_rw_mode = 1'b0;
+            mem_addr_reg = 32'h0;
+            mem_write_data = 32'h0;
+            stall_other_exec = 1'b0;
         end
     endcase
 end

@@ -6,7 +6,7 @@ module decode_jump_inst(
     output logic [1:0] jump_control
 );
 
-always @ (instruction_code) begin
+always_comb begin
     rd = instruction_code[11:7];
     if (instruction_code[6:0] == `OP_JAL) begin
         imm = {instruction_code[31], instruction_code[19:12], instruction_code[20], instruction_code[30:21], 1'b0};
