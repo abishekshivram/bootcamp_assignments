@@ -3,7 +3,7 @@ module mem(
     input logic i_clk,
     input logic i_rst,
     input logic [9:0] in_mem_addr,
-    input logic in_mem_rw_mode,
+    input logic in_mem_rw_mode, // read = 0, write = 1 (based on store.sv)
     input logic [31:0] in_mem_write_data,
     input logic [3:0] in_mem_byte_en,
     output logic [31:0] out_mem_data
@@ -23,14 +23,14 @@ always @ (*) begin
 end
 
 always @ (posedge i_clk) begin
-    if (!in_mem_rw_mode)
+    if (in_mem_rw_mode)
         memory_reg[in_mem_addr] <= write_data_muxed;
 end
 
 always @ (posedge i_clk, posedge i_rst) begin
     if (i_rst)
         out_mem_data_reg <= 32'h0;
-    else if (in_mem_rw_mode)
+    else if (!in_mem_rw_mode)
         out_mem_data_reg <= memory_reg[in_mem_addr];
 end
 

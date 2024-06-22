@@ -15,8 +15,19 @@ module store(
 );
 
 // logic [1:0] state, next_state;
-logic state, next_state;
+logic state;
+logic next_state;
 logic [31:0] mem_addr_reg;
+
+always_ff @(posedge i_clk or posedge i_rst) begin
+    if(i_rst) begin 
+        state <= 'd0;
+    end 
+    else begin
+        state <= next_state;
+    end
+end
+
 
 always @ (*) begin
     case (state)
@@ -44,14 +55,6 @@ always @ (*) begin
             mem_addr_reg = 32'h0;
             mem_write_data = 32'h0;
             stall_other_exec = 1'b1;
-        end
-        default: begin
-            next_state = `STORE_RESET;
-            stall_pc = 1'b0;
-            mem_rw_mode = 1'b0;
-            mem_addr_reg = 32'h0;
-            mem_write_data = 32'h0;
-            stall_other_exec = 1'b0;
         end
     endcase
 end

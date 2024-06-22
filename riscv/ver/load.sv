@@ -111,7 +111,7 @@ always @ (*) begin
 end
 
 
-
+assign rd_out = rd_reg;
 assign mem_rw_mode = 1'b0;
 assign mem_addr = mem_addr_reg[11:2];
 

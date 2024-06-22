@@ -9,7 +9,8 @@ module decode_load_inst(
 
 logic [2:0] func3;
 
-always_comb begin
+always@(*) begin
+// always_comb begin
     rd = instruction_code[11:7];
     func3 = instruction_code[14:12];
     rs1 = instruction_code[19:15];
