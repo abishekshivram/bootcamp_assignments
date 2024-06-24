@@ -74,7 +74,7 @@ decode_store_inst inst_decode_store_instruction(
 
 logic [4:0] branch_inst_rs1;
 logic [4:0] branch_inst_rs2;
-logic [12:1] branch_inst_imm;
+logic [12:0] branch_inst_imm;
 logic [2:0] w_branch_control;
 
 decode_branch_inst inst_decode_branch_instruction(
@@ -97,7 +97,7 @@ decode_jump_inst inst_decode_jump_instruction(
 );
 
 logic [4:0] upperimm_inst_rd;
-logic [31:12] upperimm_inst_imm;
+logic [31:0] upperimm_inst_imm;
 logic [4:0] upperimm_inst_alu_control;
 
 decode_upperimm_inst inst_decode_upperimm_instruction(
@@ -144,7 +144,7 @@ always @ (*) begin
     else if (instruction_code[6:0] == `OP_BRANCH) begin
         rs1 = branch_inst_rs1;
         rs2 = branch_inst_rs2;
-        imm = {branch_inst_imm, 1'b0};
+        imm = branch_inst_imm;
         branch_control = w_branch_control;
     end
     else if (instruction_code[6:0] == `OP_JAL) begin
